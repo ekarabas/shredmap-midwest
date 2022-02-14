@@ -1,5 +1,3 @@
-from nturl2path import url2pathname
-from unicodedata import name
 from django.urls import path
 from shredmap_midwest import views
 

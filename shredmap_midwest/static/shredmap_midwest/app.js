@@ -39,7 +39,7 @@ if (map_on_page) {
         id: 'mapbox/light-v10', //https://docs.mapbox.com/api/maps/styles/
         tileSize: 512,
         zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoiZXptb25leWV2YW4iLCJhIjoiY2t6OHVvbXd4MW55NDJ3bmY0dGdoeXFiNCJ9.F9crG3FgELm-OPtdFWuVpA'
+        accessToken: 'pk.eyJ1IjoiZXptb25leWV2YW4iLCJhIjoiY2t6OHVvbXd4MW55NDJ3bmY0dGdoeXFiNCJ9.F9crG3FgELm-OPtdFWuVpA' //Public key
     }).addTo(map);
 }
 

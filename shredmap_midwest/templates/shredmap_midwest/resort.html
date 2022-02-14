@@ -1,0 +1,373 @@
+{% extends "shredmap_midwest/layout.html" %}
+
+{% block body %}
+
+<!-- Information about the resort -->
+<div class="padding-please">
+    <!-- Error message if the user submits the form with no fields -->
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{error}}
+    </div>
+    {% elif deleted %}
+    <div class="alert alert-secondary" role="alert">
+        Your review has been deleted.
+    </div>
+    {% elif success %}
+    <div class="alert alert-success" role="alert">
+        {{success}}
+    </div>
+    {% endif %}
+    <div>
+        <h1 style="float: left">{{resort.name}}</h1>
+
+        <!-- Buttons to edit or delete review (desktop version) -->
+        {% if user.is_authenticated %}
+        {% if visited %}
+        <button type="button" class="btn btn-danger desktop-button" data-bs-toggle="modal"
+            data-bs-target="#deleteReviewModal">
+            Delete your review
+        </button>
+        <button type="button" class="btn btn-secondary desktop-button" data-bs-toggle="modal"
+            data-bs-target="#reviewModal">
+            Update your review
+        </button>
+        {% else %}
+        <button type="button" class="btn btn-primary desktop-button" data-bs-toggle="modal"
+            data-bs-target="#reviewModal">
+            Leave a review
+        </button>
+        {% endif %}
+        {% endif %}
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <h3 class="fw-light">{{resort.city}}, {{resort.state}}</h3>
+
+    <!-- https://www.freecodecamp.org/news/how-to-use-html-to-open-link-in-new-tab/ -->
+    <p class="fw-light"><a href="{{resort.website}}" target="_blank" rel="noopener noreferrer">{{resort.website}}</a>
+    </p>
+
+    <!-- Buttons to edit or delete review (mobile version)-->
+    {% if user.is_authenticated %}
+    {% if visited %}
+    <button type="button" class="btn btn-secondary mobile-button" data-bs-toggle="modal" data-bs-target="#reviewModal">
+        Update your review
+    </button>
+    <button type="button" class="btn btn-danger mobile-button" data-bs-toggle="modal"
+        data-bs-target="#deleteReviewModal">
+        Delete your review
+    </button>
+    {% else %}
+    <button type="button" class="btn btn-primary desktop-button" data-bs-toggle="modal" data-bs-target="#reviewModal">
+        Leave a review
+    </button>
+    {% endif %}
+    {% endif %}
+
+    <!-- Review modal -->
+    <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reviewModalLabel">Review {{resort.name}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form class="title" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+
+                        <!-- Terrain park review -->
+                        {% if this_review.park_review %}
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="park_check"
+                                onclick="toggle_park()" checked>
+                            <label for="customRange1" class="form-label">Terrain Park</label>
+                        </div>
+                        <input type="range" class="form-range" snap="1" id="park_range" name="park_review"
+                            value="{{this_review.park_review}}">
+
+                        {% else %}
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="park_check"
+                                onclick="toggle_park()">
+                            <label for="customRange1" class="form-label">Terrain Park</label>
+                        </div>
+                        <input type="range" class="form-range" snap="1" id="park_range" name="park_review" disabled>
+
+                        {% endif %}
+
+                        <!-- Groomer review -->
+                        {% if this_review.groomer_review %}
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="groomer_check"
+                                onclick="toggle_groomer()" checked>
+                            <label for="customRange1" class="form-label">Groomers</label>
+                        </div>
+                        <input type="range" class="form-range" snap="1" id="groomer_range" name="groomer_review"
+                            value="{{this_review.groomer_review}}">
+
+                        {% else %}
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="groomer_check"
+                                onclick="toggle_groomer()">
+                            <label for="customRange1" class="form-label">Groomers</label>
+                        </div>
+                        <input type="range" class="form-range" snap="1" id="groomer_range" name="groomer_review"
+                            disabled>
+
+                        {% endif %}
+
+                        <!-- Chairlift review -->
+                        {% if this_review.lift_review %}
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="lift_check"
+                                onclick="toggle_lift()" checked>
+                            <label for="customRange1" class="form-label">Chairlifts & Tow Ropes <small>(accessibility,
+                                    speed, lines, etc.)</small></label>
+                        </div>
+                        <input type="range" class="form-range" snap="1" id="lift_range" name="lift_review"
+                            value="{{this_review.lift_review}}">
+
+                        {% else %}
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="lift_check"
+                                onclick="toggle_lift()">
+                            <label for="customRange1" class="form-label">Chairlifts & Tow Ropes <small>(accessibility,
+                                    speed, lines, etc.)</small></label>
+                        </div>
+                        <input type="range" class="form-range" snap="1" id="lift_range" name="lift_review" disabled>
+
+                        {% endif %}
+
+                        <!-- Vibe review -->
+                        {% if this_review.vibe_review %}
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="vibe_check"
+                                onclick="toggle_vibe()" checked>
+                            <label for="customRange1" class="form-label">Overall Vibe <small>(lodge, friendliness,
+                                    atmosphere,
+                                    etc.)</small></label>
+                        </div>
+                        <input type="range" class="form-range" snap="1" id="vibe_range" name="vibe_review"
+                            value="{{this_review.vibe_review}}">
+
+                        {% else %}
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="vibe_check"
+                                onclick="toggle_vibe()">
+                            <label for="customRange1" class="form-label">Overall Vibe <small>(lodge, friendliness,
+                                    atmosphere,
+                                    etc.)</small></label>
+                        </div>
+                        <input type="range" class="form-range" snap="1" id="vibe_range" name="vibe_review" disabled>
+                        {% endif %}
+                        <br>
+                        <br>
+                        {% if this_review.message %}
+                        <textarea class="form-control" placeholder="Comments" style="height: 150px"
+                            name="message">{{this_review.message}}</textarea>
+                        {% else %}
+                        <textarea class="form-control" placeholder="Comments" style="height: 150px"
+                            name="message"></textarea>
+                        {% endif %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Review modal -->
+    <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reviewModalLabel">Review {{resort.name}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form class="title" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+
+                        <!-- Terrain park review -->
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="park_check"
+                                onclick="toggle_park()">
+                            <label for="customRange1" class="form-label">Terrain Park</label>
+                        </div>
+                        <input type="range" class="form-range" snap="1" class="park_range" name="park_review" disabled>
+
+                        <!-- Groomer review -->
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="groomer_check"
+                                onclick="toggle_groomer()">
+                            <label for="customRange1" class="form-label">Groomers</label>
+                        </div>
+                        <input type="range" class="form-range" snap="1" id="groomer_range" name="groomer_review"
+                            disabled>
+
+                        <!-- Chairlift review -->
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="lift_check"
+                                onclick="toggle_lift()">
+                            <label for="customRange1" class="form-label">Chairlifts & Tow Ropes <small>(accessibility,
+                                    speed,
+                                    lines, etc.)</small></label>
+                        </div>
+                        <input type="range" class="form-range" snap="1" id="lift_range" name="lift_review" disabled>
+
+                        <!-- Vibe review -->
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="vibe_check"
+                                onclick="toggle_vibe()">
+                            <label for="customRange1" class="form-label">Overall Vibe <small>(lodge, friendliness,
+                                    atmosphere,
+                                    etc.)</small></label>
+                        </div>
+                        <input type="range" class="form-range" snap="1" id="vibe_range" name="vibe_review" disabled>
+                        <br>
+                        <br>
+                        <textarea class="form-control" placeholder="Comments" style="height: 150px"
+                            name="message"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete review modal -->
+    <div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reviewModalLabel">Delete {{resort.name}} Review</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form class="title" method="post">
+                    {% csrf_token %}
+                    <!-- Hidden input for detecting when the delete form is submitted (vs the review form) -->
+                    <input type="text" name="delete" hidden>
+                    <div class="modal-body">
+                        <p>This will permanently delete your review for {{resort.name}}. Are you sure?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <!-- https://www.w3docs.com/snippets/html/how-to-create-an-html-button-that-acts-like-a-link.html -->
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+
+    <!-- Total average scores -->
+    {% if reviews %}
+    <h3 class="slight-margin-bottom">Ratings</h3>
+    <div class="half-width">
+        <h6 class="fw-light">Terrain Park</h6>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+                aria-valuemin="0" aria-valuemax="100" style="width: {{avg_park.park_review__avg}}%"></div>
+        </div>
+        <br>
+        <h6 class="fw-light">Groomers</h6>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+                aria-valuemin="0" aria-valuemax="100" style="width: {{avg_groomer.groomer_review__avg}}%"></div>
+        </div>
+        <br>
+        <h6 class="fw-light">Chairlifts & Tow Ropes</h6>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+                aria-valuemin="0" aria-valuemax="100" style="width: {{avg_lift.lift_review__avg}}%"></div>
+        </div>
+        <br>
+        <h6 class="fw-light">Overall Vibe</h6>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+                aria-valuemin="0" aria-valuemax="100" style="width: {{avg_vibe.vibe_review__avg}}%">
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    {% endif %}
+
+
+    <h3 class="slight-margin-bottom">Reviews</h3>
+    {% if not reviews %}
+    <p class="fw-light fs-5">This resort has no reviews yet.</p>
+    {% else %}
+    <div class="d-flex flex-wrap">
+        {% for review in reviews %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{review.author.username}}</h5>
+                {% if review.message %}
+                <p class="card-text">{{review.message}}</p>
+                {% endif %}
+                {% if review.park_review %}
+                <div class="progress slight-margin-bottom">
+                    <div class="progress-bar" role="progressbar" style="width: {{review.park_review}}%"
+                        aria-valuemin="0" aria-valuemax="100">
+                        <span class="progress-bar-text">Terrain Park</span>
+                    </div>
+                </div>
+                {% endif %}
+                {% if review.groomer_review %}
+                <div class="progress slight-margin-bottom">
+                    <div class="progress-bar" role="progressbar" style="width: {{review.groomer_review}}%"
+                        aria-valuemin="0" aria-valuemax="100">
+                        <span class="progress-bar-text">Groomers</span>
+                    </div>
+                </div>
+                {% endif %}
+                {% if review.lift_review %}
+                <div class="progress slight-margin-bottom">
+                    <div class="progress-bar" role="progressbar" style="width: {{review.lift_review}}%"
+                        aria-valuemin="0" aria-valuemax="100">
+                        <span class="progress-bar-text">Chairlifts and Tow Ropes</span>
+                    </div>
+                </div>
+                {% endif %}
+                {% if review.vibe_review %}
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{review.vibe_review}}%"
+                        aria-valuemin="0" aria-valuemax="100">
+                        <span class="progress-bar-text">Overall Vibe</span>
+                    </div>
+                </div>
+                {% endif %}
+                <br>
+                <!-- http://www.learningaboutelectronics.com/Articles/How-to-display-only-the-date-from-a-DateTimeField-object-in-Django.php -->
+                {% if review.edited %}
+                <h6 class="card-subtitle mb-2 text-muted fw-light"><small>Updated
+                        {{review.timestamp | date:"F d, Y"}}</small>
+                </h6>
+                {% else %}
+                <h6 class="card-subtitle mb-2 text-muted fw-light"><small>
+                        {{review.timestamp | date:"F d, Y"}}</small>
+                </h6>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

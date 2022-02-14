@@ -1,0 +1,27 @@
+{% extends "shredmap_midwest/layout.html" %}
+
+{% block body %}
+
+<div class="account-form">
+    <h2>Log in</h2>
+
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input autofocus class="form-control account-input" type="text" name="username" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <input class="form-control account-input" type="password" name="password" placeholder="Password">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Login">
+    </form>
+    <br>
+    Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+</div>
+
+
+{% endblock %}

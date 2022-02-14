@@ -7,19 +7,6 @@ function user_signed_in() {
     }
 }
 
-// Return a list of resorts the user has visited
-function user_visited() {
-
-    if (user_signed_in()) {
-        fetch('/user_visited')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                return data;
-            })
-    }
-}
-
 
 // Get access to green and grey map icons
 // https://github.com/pointhi/leaflet-color-markers

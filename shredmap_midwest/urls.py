@@ -9,7 +9,6 @@ urlpatterns = [
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
     path("<int:resort_id>", views.resort_view, name="resort_view"),
-    path("test", views.test, name="test"),
 
     # API Routes
     path("resort/<int:resort_id>", views.resort, name="resort"),

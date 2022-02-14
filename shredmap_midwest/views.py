@@ -1,6 +1,5 @@
-from pydoc import visiblename
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.db import IntegrityError
@@ -195,10 +194,6 @@ def resort_view(request, resort_id):
         "avg_lift": this_resort_reviews.aggregate(Avg('lift_review')),
         "avg_vibe": this_resort_reviews.aggregate(Avg('vibe_review')),
     })
-
-
-def test(request):
-    return render(request, "shredmap_midwest/test.html")
 
 
 def login_view(request):

@@ -138,3 +138,5 @@ function toggle_vibe() {
         vibe_slider.disabled = true;
     }
 }
+
+// Reset the filters on the resort list page

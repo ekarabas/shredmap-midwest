@@ -13,6 +13,7 @@ It is an interactive map of each official ski/snowboard hill in the midwest. As 
 * Total ratings system that averages all reviews for each location
 * Map markers change colors based on which locations have been visited by the user
 * Forms are Bootstrap Modals, multiple forms on the same page
+* Ability to simultaneously filter and sort database items on multiple criteria
 * Utilizes Leaflet JavaScript library: https://leafletjs.com/
 
 ## Files
@@ -30,6 +31,9 @@ This is the first page the user will see upon logging in. It displays an interac
 
 #### /templates/shredmap_midwest/resort.html
 This file will display data for the resort in question, noted by the resort ID at the end of the URL. The page will display the resort name, city, state, and website, as well as all of the current reviews for the resort. It will also aggregate all four categories (terrain park, groomers, chairlifts, overall vibe) and show the average score for each category. If the user is signed in, there will be a button to leave a review, which will reveal a modal when clicked. If the user has already left a review, there will instead be buttons to update or delete the review. The user will recieve success/error messages at the top of the page depenhding on if the review was posted/updated/deleted successfully or not. All review fields are optional as long as at least one is filled in. When the opage displays the user reviews, it only displays the fields that the user filled in, as well as the timestamp of the review, and whether it has been updated or not.
+
+#### /templates/shredmap_midwest/resorts.html
+This file gives the user the option to view the ski resorts in a list rather than on the map. The user has the option to select one or more states to filter the results. The user can also select a category to filter by, for instance, Terrain Park. Example: A user can search for the best terrain parks in Wisconsin and Minnesota by checking the Wisconsin and Minnesota sliders, in addition to clicking the Terrain Park radio button. Clicking on any resort's list entry will take the user to that resort's page on the website. 
 
 #### /static/shredmap_midwest/app.js
 This file provides all the JavaScript logic for the project (aside from the built-in Bootstrap and Leaflet JS, of course). It is linked via the layout.html file. Notably, this file displays the interactive map on the homepage, as well as all of the markers. It handles the logic for changing the color of the marker based on which resorts the user has visited. It also allows the user to toggle review fields on or off when filling out a review. Review fields that are toggled off will not be included once the user submits the review, although fields can be added/removed later if the user chooses to update the review. 

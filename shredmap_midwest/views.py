@@ -196,6 +196,18 @@ def resort_view(request, resort_id):
     })
 
 
+def resorts(request):
+    # Display a list of resorts, allowing the user to sort by different categories
+
+    # Get a list of all the resorts
+    resorts = Resort.objects.all()
+
+    return render(request, "shredmap_midwest/resorts.html", {
+        "resorts": resorts,
+        "category": "Terrain Park",
+    })
+
+
 def login_view(request):
     if request.method == "POST":
 

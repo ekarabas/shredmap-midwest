@@ -27,27 +27,35 @@
 
 
 <body>
-
     <!-- Navbar -->
-    <nav class="navbar navbar-light bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'index' %}">
                 <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.onlinewebfonts.com%2Fsvg%2Fimg_350758.png&f=1&nofb=1"
                     alt="" width="30" height="30" class="d-inline-block align-text-top">
                 ShredMap Midwest
             </a>
-            <div>
-                {% if user.is_authenticated %}
-                <a class="btn btn-link me-2 no-hover" id="logged_in">Logged in as <strong>{{request.user.username}}</strong></a>
-                <a class="btn btn-outline-danger me-2" href="{% url 'logout' %}" type="button">Log out</a>
-                {% else %}
-                <a class="btn btn-outline-primary me-2" href="{% url 'register' %}" type="button">Register</a>
-                <a class="btn btn-outline-primary me-2" href="{% url 'login' %}" type="button">Log in</a>
-                {% endif %}
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link" href="{% url 'index' %}">Home</a>
+              <a class="nav-link" href="{% url 'resorts' %}">Resort List</a>
             </div>
-
+          </div>
+          <div>
+            {% if user.is_authenticated %}
+            <a class="btn btn-link me-2 no-hover" id="logged_in">Logged in as <strong>{{request.user.username}}</strong></a>
+            <a class="btn btn-outline-danger me-2" href="{% url 'logout' %}" type="button">Log out</a>
+            {% else %}
+            <a class="btn btn-outline-primary me-2" href="{% url 'register' %}" type="button">Register</a>
+            <a class="btn btn-outline-primary me-2" href="{% url 'login' %}" type="button">Log in</a>
+            {% endif %}
         </div>
-    </nav>
+        </div>
+      </nav>
 
 </body>
 

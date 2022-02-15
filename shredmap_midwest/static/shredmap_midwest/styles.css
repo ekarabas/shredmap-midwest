@@ -1,8 +1,3 @@
-.map-container {
-    margin: auto;
-    width: 70%;
-}
-
 .center-text {
     text-align: center;
 }
@@ -92,6 +87,36 @@ textarea {
     display: none;
 }
 
+h2 {
+    margin-bottom: 2%;
+}
+
+.resort-list-item {
+    float: left;
+    width: 60%;
+    margin: auto;
+}
+
+.resort-list-item:hover {
+    background-color: rgb(248, 248, 248);
+}
+
+.resort-list-link {
+    text-decoration: none;
+    color: black;
+}
+
+.resort-view-container {
+    width: 50%;
+}
+
+.mobile-filters {
+    display: none;
+}
+
+.desktop-filters {
+    display: block;
+}
 
 /* https://stackoverflow.com/questions/42586044/change-css-only-for-mobile-devices */
 @media (max-width: 700px) {
@@ -108,5 +133,17 @@ textarea {
          display: block;
          margin-bottom: 1%
      }
+
+     .mobile-filters {
+         display: block;
+     }
+
+     .desktop-filters {
+         display: none;
+     }
+
+     .resort-list-item {
+        width: 100%;
+    }
 
 }

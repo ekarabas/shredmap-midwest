@@ -137,10 +137,11 @@ function toggle_vibe() {
 
 // Reset the filters on the resort list page to their default settings
 function reset_filters() {
-    console.log("in function");
-    var switches = document.querySelectorAll(".stateSwitch");
-    console.log(switches.length);
+    switches = document.querySelectorAll('.stateSwitch');
     for (let i = 0; i < switches.length; i++) {
-        console.log("hello");
+        switches[i].checked = false;
     }
+
+    none_radio = document.querySelector('#noneRadio');
+    none_radio.checked = true;
 }

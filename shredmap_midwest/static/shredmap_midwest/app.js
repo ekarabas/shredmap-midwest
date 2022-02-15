@@ -41,65 +41,61 @@ if (map_on_page) {
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoiZXptb25leWV2YW4iLCJhIjoiY2t6OHVvbXd4MW55NDJ3bmY0dGdoeXFiNCJ9.F9crG3FgELm-OPtdFWuVpA' //Public key
     }).addTo(map);
-}
 
-// If a user is signed in, display his or her visited resorts as a blue marker
-if (user_signed_in()) {
-    fetch('/user_visited')
-        .then(response => response.json())
-        .then(visited_data => {
-            fetch('/all-resorts')
-                .then(response => response.json())
-                .then(resorts_data => {
-                    for (let i = 0; i < resorts_data.length; i++) {
+    // If a user is signed in, display his or her visited resorts as a blue marker
+    if (user_signed_in()) {
+        fetch('/user_visited')
+            .then(response => response.json())
+            .then(visited_data => {
+                fetch('/all-resorts')
+                    .then(response => response.json())
+                    .then(resorts_data => {
+                        for (let i = 0; i < resorts_data.length; i++) {
 
-                        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
-                        if (visited_data.indexOf(resorts_data[i].id) > -1) {
-                            L.marker([resorts_data[i].x, resorts_data[i].y], {
-                                    riseOnHover: true,
-                                    icon: greenIcon,
-                                }).addTo(map)
-                                .bindPopup(
-                                    `<h5 class="fw-normal"><a href="/${resorts_data[i].id}">${resorts_data[i].name}</a></h5>
+                            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
+                            if (visited_data.indexOf(resorts_data[i].id) > -1) {
+                                L.marker([resorts_data[i].x, resorts_data[i].y], {
+                                        riseOnHover: true,
+                                        icon: greenIcon,
+                                    }).addTo(map)
+                                    .bindPopup(
+                                        `<h5 class="fw-normal"><a href="/${resorts_data[i].id}">${resorts_data[i].name}</a></h5>
                             <h6 class="fw-light text-muted">${resorts_data[i].city}, ${resorts_data[i].state}</h6>`
-                                );
-                        } else {
-                            L.marker([resorts_data[i].x, resorts_data[i].y], {
-                                    riseOnHover: true,
-                                    icon: greyIcon,
-                                }).addTo(map)
-                                .bindPopup(
-                                    `<h5 class="fw-normal"><a href="/${resorts_data[i].id}">${resorts_data[i].name}</a></h5>
+                                    );
+                            } else {
+                                L.marker([resorts_data[i].x, resorts_data[i].y], {
+                                        riseOnHover: true,
+                                        icon: greyIcon,
+                                    }).addTo(map)
+                                    .bindPopup(
+                                        `<h5 class="fw-normal"><a href="/${resorts_data[i].id}">${resorts_data[i].name}</a></h5>
                             <h6 class="fw-light text-muted">${resorts_data[i].city}, ${resorts_data[i].state}</h6>`
-                                );
+                                    );
+                            }
                         }
-                    }
-                })
-        })
+                    })
+            })
 
-
-}
-// Otherwise, display all markers as grey
-else {
-    fetch('/all-resorts')
-        .then(response => response.json())
-        .then(resorts_data => {
-            for (let i = 0; i < resorts_data.length; i++) {
-                L.marker([resorts_data[i].x, resorts_data[i].y], {
-                        riseOnHover: true,
-                        icon: greyIcon,
-                    }).addTo(map)
-                    .bindPopup(
-                        `<h5 class="fw-normal"><a href="/${resorts_data[i].id}">${resorts_data[i].name}</a></h5>
+    }
+    // Otherwise, display all markers as grey
+    else {
+        fetch('/all-resorts')
+            .then(response => response.json())
+            .then(resorts_data => {
+                for (let i = 0; i < resorts_data.length; i++) {
+                    L.marker([resorts_data[i].x, resorts_data[i].y], {
+                            riseOnHover: true,
+                            icon: greyIcon,
+                        }).addTo(map)
+                        .bindPopup(
+                            `<h5 class="fw-normal"><a href="/${resorts_data[i].id}">${resorts_data[i].name}</a></h5>
                     <h6 class="fw-light text-muted">${resorts_data[i].city}, ${resorts_data[i].state}</h6>`
-                    );
-            }
-        })
+                        );
+                }
+            })
+    }
+
 }
-
-
-
-
 
 
 // Resort review: allow categories to be toggled on and off 
@@ -139,4 +135,12 @@ function toggle_vibe() {
     }
 }
 
-// Reset the filters on the resort list page
+// Reset the filters on the resort list page to their default settings
+function reset_filters() {
+    console.log("in function");
+    var switches = document.querySelectorAll(".stateSwitch");
+    console.log(switches.length);
+    for (let i = 0; i < switches.length; i++) {
+        console.log("hello");
+    }
+}

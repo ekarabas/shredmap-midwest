@@ -198,14 +198,90 @@ def resort_view(request, resort_id):
 
 def resorts(request):
     # Display a list of resorts, allowing the user to sort by different categories
+    category = ""
 
     # Get a list of all the resorts
     resorts = Resort.objects.all()
 
+    # If the user edits the filters, get the proper data
+    if request.method == "POST":
+
+        # Start out with an empty queryset (we will add to this based on what filters the user selects)
+        filtered_resorts = Resort.objects.none()
+
+        # Access the state filters the user toggled (None if the filter was not turned on)
+        ND = request.POST.get("ND", None)
+        SD = request.POST.get("SD", None)
+        MN = request.POST.get("MN", None)
+        WI = request.POST.get("WI", None)
+        MI = request.POST.get("MI", None)
+        IL = request.POST.get("IL", None)
+        MO = request.POST.get("MO", None)
+        IN = request.POST.get("IN", None)
+        OH = request.POST.get("OH", None)
+
+        # Access the category filter, if applied
+        filter_park = request.POST.get("filter_park", None)
+        filter_groomers = request.POST.get("filter_groomers", None)
+        filter_lifts = request.POST.get("filter_lifts", None)
+        filter_vibe = request.POST.get("filter_vibe", None)
+        filter_none = request.POST.get("filter_none", None)
+
+        # Adjust the list of resorts based on what states were selected
+        # https://simpleisbetterthancomplex.com/tips/2016/06/20/django-tip-5-how-to-merge-querysets.html
+        if ND:
+            filtered_resorts = filtered_resorts | Resort.objects.filter(
+                state="ND")
+        if SD:
+            filtered_resorts = filtered_resorts | Resort.objects.filter(
+                state="SD")
+        if MN:
+            filtered_resorts = filtered_resorts | Resort.objects.filter(
+                state="MN")
+        if WI:
+            filtered_resorts = filtered_resorts | Resort.objects.filter(
+                state="WI")
+        if MI:
+            filtered_resorts = filtered_resorts | Resort.objects.filter(
+                state="MI")
+        if IL:
+            filtered_resorts = filtered_resorts | Resort.objects.filter(
+                state="IL")
+        if MO:
+            filtered_resorts = filtered_resorts | Resort.objects.filter(
+                state="MO")
+        if IN:
+            filtered_resorts = filtered_resorts | Resort.objects.filter(
+                state="IN")
+        if OH:
+            filtered_resorts = filtered_resorts | Resort.objects.filter(
+                state="OH")
+
+        # Order the list based on which category was selected
+
+        return render(request, "shredmap_midwest/resorts.html", {
+            "resorts": filtered_resorts,
+            "category": category,
+        })
+
     return render(request, "shredmap_midwest/resorts.html", {
         "resorts": resorts,
-        "category": "Terrain Park",
+        "category": category,
     })
+
+
+def get_average(category, resort):
+    # Python function to get the average of the reviews in a specific category for any given resort
+    # Category should be "park_review", "groomer_review", "lift_review", or "vibe_review"
+
+    # Get the reviews of this resort
+    try:
+        this_resort_reviews = Review.objects.filter(resort=resort)
+    except Review.DoesNotExist:
+        return JsonResponse({"error": "Review not found."}, status=404)
+
+    # Return the average reviews for the specified category
+    return this_resort_reviews.aggregate(Avg(category))
 
 
 def login_view(request):

@@ -29,6 +29,12 @@ class Resort(models.Model):
     x = models.FloatField()
     y = models.FloatField()
 
+    # Review averages
+    avg_park = models.FloatField(default=None, null=True, blank=True)
+    avg_groomer = models.FloatField(default=None, null=True, blank=True)
+    avg_lift = models.FloatField(default=None, null=True, blank=True)
+    avg_vibe = models.FloatField(default=None, null=True, blank=True)
+
     def serialize(self):
         return {
             "id": self.id,

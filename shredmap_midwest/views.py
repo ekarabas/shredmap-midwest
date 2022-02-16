@@ -33,8 +33,7 @@ def resort_view(request, resort_id):
 
     # Get the reviews of this resort
     try:
-        this_resort_reviews = Review.objects.filter(resort=resort)
-        reviews = this_resort_reviews.order_by("-timestamp")
+        reviews = Review.objects.filter(resort=resort).order_by("-timestamp")
     except Review.DoesNotExist:
         return JsonResponse({"error": "Review not found."}, status=404)
 
@@ -64,10 +63,10 @@ def resort_view(request, resort_id):
                 "reviews": reviews,
                 "visited": visited,
                 "this_review": this_review,
-                "avg_park": this_resort_reviews.aggregate(Avg('park_review')),
-                "avg_groomer": this_resort_reviews.aggregate(Avg('groomer_review')),
-                "avg_lift": this_resort_reviews.aggregate(Avg('lift_review')),
-                "avg_vibe": this_resort_reviews.aggregate(Avg('vibe_review')),
+                "avg_park": get_average(resort, 'park_review'),
+                "avg_groomer": get_average(resort, 'groomer_review'),
+                "avg_lift": get_average(resort, 'lift_review'),
+                "avg_vibe": get_average(resort, 'vibe_review'),
                 "deleted": deleted,
             })
 
@@ -151,10 +150,10 @@ def resort_view(request, resort_id):
                 "reviews": reviews,
                 "visited": visited,
                 "this_review": this_review,
-                "avg_park": this_resort_reviews.aggregate(Avg('park_review')),
-                "avg_groomer": this_resort_reviews.aggregate(Avg('groomer_review')),
-                "avg_lift": this_resort_reviews.aggregate(Avg('lift_review')),
-                "avg_vibe": this_resort_reviews.aggregate(Avg('vibe_review')),
+                "avg_park": get_average(resort, 'park_review'),
+                "avg_groomer": get_average(resort, 'groomer_review'),
+                "avg_lift": get_average(resort, 'lift_review'),
+                "avg_vibe": get_average(resort, 'vibe_review'),
             })
 
         # Save the review
@@ -177,10 +176,10 @@ def resort_view(request, resort_id):
             "reviews": reviews,
             "visited": visited,
             "this_review": this_review,
-            "avg_park": this_resort_reviews.aggregate(Avg('park_review')),
-            "avg_groomer": this_resort_reviews.aggregate(Avg('groomer_review')),
-            "avg_lift": this_resort_reviews.aggregate(Avg('lift_review')),
-            "avg_vibe": this_resort_reviews.aggregate(Avg('vibe_review')),
+            "avg_park": get_average(resort, 'park_review'),
+            "avg_groomer": get_average(resort, 'groomer_review'),
+            "avg_lift": get_average(resort, 'lift_review'),
+            "avg_vibe": get_average(resort, 'vibe_review'),
         })
 
     # Show information about the resort
@@ -189,10 +188,10 @@ def resort_view(request, resort_id):
         "reviews": reviews,
         "visited": visited,
         "this_review": this_review,
-        "avg_park": this_resort_reviews.aggregate(Avg('park_review')),
-        "avg_groomer": this_resort_reviews.aggregate(Avg('groomer_review')),
-        "avg_lift": this_resort_reviews.aggregate(Avg('lift_review')),
-        "avg_vibe": this_resort_reviews.aggregate(Avg('vibe_review')),
+        "avg_park": get_average(resort, 'park_review'),
+        "avg_groomer": get_average(resort, 'groomer_review'),
+        "avg_lift": get_average(resort, 'lift_review'),
+        "avg_vibe": get_average(resort, 'vibe_review'),
     })
 
 
@@ -270,7 +269,7 @@ def resorts(request):
     })
 
 
-def get_average(category, resort):
+def get_average(resort, category):
     # Python function to get the average of the reviews in a specific category for any given resort
     # Category should be "park_review", "groomer_review", "lift_review", or "vibe_review"
 

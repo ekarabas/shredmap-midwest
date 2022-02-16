@@ -1,7 +1,7 @@
 # ShredMap Midwest
 This is my final project for CS50w: https://cs50.harvard.edu/web/2020/
 
-It is an interactive map of each official ski/snowboard hill in the midwest. As a snowboarder in the midwest, I created this tool to track the hills I visit, and thought others may want to do the same. Hills can be revieviewed by users on four different criteria in addition to a message, and the aggregated criteria scores are available on each hill's page, along with the individual reviews. More information below.
+It is an interactive map of each official ski/snowboard hill in the midwest. As a snowboarder in the midwest, I wanted to create this tool to track the hills I visit, and thought others may want to do the same. Hills can be revieviewed by users on four different criteria in addition to a message, and the aggregated criteria scores are available on each hill's page, along with the individual reviews. More information below.
 
 ## Distinctiveness and Complexity
 #### What makes this different than the projects we worked on in class?

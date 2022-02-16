@@ -46,6 +46,17 @@ def resort_view(request, resort_id):
         except Review.DoesNotExist:
             return JsonResponse({"error": "User listed as a visitor, but review does not exist"})
 
+    # Update the average values for the reviews
+    # https://stackoverflow.com/questions/41744096/efficient-way-to-update-multiple-fields-of-django-model-object
+    Resort.objects.filter(id=resort_id).update(
+        avg_park=get_average(resort, 'park_review')['park_review__avg'])
+    Resort.objects.filter(id=resort_id).update(
+        avg_groomer=get_average(resort, 'groomer_review')['groomer_review__avg'])
+    Resort.objects.filter(id=resort_id).update(
+        avg_lift=get_average(resort, 'lift_review')['lift_review__avg'])
+    Resort.objects.filter(id=resort_id).update(
+        avg_vibe=get_average(resort, 'vibe_review')['vibe_review__avg'])
+
     # If the user submitted the review form, validate it and post it
     if request.method == "POST":
 
@@ -63,10 +74,10 @@ def resort_view(request, resort_id):
                 "reviews": reviews,
                 "visited": visited,
                 "this_review": this_review,
-                "avg_park": get_average(resort, 'park_review'),
-                "avg_groomer": get_average(resort, 'groomer_review'),
-                "avg_lift": get_average(resort, 'lift_review'),
-                "avg_vibe": get_average(resort, 'vibe_review'),
+                "avg_park": resort.avg_park,
+                "avg_groomer": resort.avg_groomer,
+                "avg_lift": resort.avg_lift,
+                "avg_vibe": resort.avg_vibe,
                 "deleted": deleted,
             })
 
@@ -150,10 +161,10 @@ def resort_view(request, resort_id):
                 "reviews": reviews,
                 "visited": visited,
                 "this_review": this_review,
-                "avg_park": get_average(resort, 'park_review'),
-                "avg_groomer": get_average(resort, 'groomer_review'),
-                "avg_lift": get_average(resort, 'lift_review'),
-                "avg_vibe": get_average(resort, 'vibe_review'),
+                "avg_park": resort.avg_park,
+                "avg_groomer": resort.avg_groomer,
+                "avg_lift": resort.avg_lift,
+                "avg_vibe": resort.avg_vibe,
             })
 
         # Save the review
@@ -176,10 +187,10 @@ def resort_view(request, resort_id):
             "reviews": reviews,
             "visited": visited,
             "this_review": this_review,
-            "avg_park": get_average(resort, 'park_review'),
-            "avg_groomer": get_average(resort, 'groomer_review'),
-            "avg_lift": get_average(resort, 'lift_review'),
-            "avg_vibe": get_average(resort, 'vibe_review'),
+            "avg_park": resort.avg_park,
+            "avg_groomer": resort.avg_groomer,
+            "avg_lift": resort.avg_lift,
+            "avg_vibe": resort.avg_vibe,
         })
 
     # Show information about the resort
@@ -188,10 +199,10 @@ def resort_view(request, resort_id):
         "reviews": reviews,
         "visited": visited,
         "this_review": this_review,
-        "avg_park": get_average(resort, 'park_review'),
-        "avg_groomer": get_average(resort, 'groomer_review'),
-        "avg_lift": get_average(resort, 'lift_review'),
-        "avg_vibe": get_average(resort, 'vibe_review'),
+        "avg_park": resort.avg_park,
+        "avg_groomer": resort.avg_groomer,
+        "avg_lift": resort.avg_lift,
+        "avg_vibe": resort.avg_vibe,
     })
 
 

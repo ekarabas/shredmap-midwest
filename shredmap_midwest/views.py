@@ -254,19 +254,19 @@ def resorts(request):
 
         # Order the list based on which category was selected
         if categorySelect == "filter_park":
-            filtered_resorts = filtered_resorts.order_by("avg_park")
+            filtered_resorts = filtered_resorts.order_by("-avg_park")
             category = "Terrain Park"
 
         elif categorySelect == "filter_groomers":
-            filtered_resorts = filtered_resorts.order_by("avg_groomer")
+            filtered_resorts = filtered_resorts.order_by("-avg_groomer")
             category = "Groomers"
 
         elif categorySelect == "filter_lifts":
-            filtered_resorts = filtered_resorts.order_by("avg_lift")
+            filtered_resorts = filtered_resorts.order_by("-avg_lift")
             category = "Chairlifts & Tow Ropes"
 
         elif categorySelect == "filter_vibe":
-            filtered_resorts = filtered_resorts.order_by("avg_vibe")
+            filtered_resorts = filtered_resorts.order_by("-avg_vibe")
             category = "Overall Vibe"
 
         return render(request, "shredmap_midwest/resorts.html", {

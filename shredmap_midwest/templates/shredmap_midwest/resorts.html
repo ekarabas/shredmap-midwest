@@ -56,37 +56,37 @@
                 <!-- Category select -->
                 <h4>Category</h4>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="filter_park" id="exampleRadios1"
-                        value="option1">
+                    <input class="form-check-input" type="radio" name="categorySelect" id="exampleRadios1"
+                        value="filter_park">
                     <label class="form-check-label" for="exampleRadios1">
                         Terrain Park
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="filter_groomers" id="exampleRadios1"
-                        value="option2">
+                    <input class="form-check-input" type="radio" name="categorySelect" id="exampleRadios1"
+                        value="filter_groomers">
                     <label class="form-check-label" for="exampleRadios2">
                         Groomers
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="filter_lifts" id="exampleRadios1"
-                        value="option2">
+                    <input class="form-check-input" type="radio" name="categorySelect" id="exampleRadios1"
+                        value="filter_lifts">
                     <label class="form-check-label" for="exampleRadios2">
                         Chairlifts & Tow Ropes
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="filter_vibe" id="exampleRadios1"
-                        value="option2">
+                    <input class="form-check-input" type="radio" name="categorySelect" id="exampleRadios1"
+                        value="filter_vibe">
                     <label class="form-check-label" for="exampleRadios2">
                         Overall Vibe
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" id="noneRadio" type="radio" name="filter_none"
-                        value="option2" checked>
-                    <label class="form-check-label" for="noneRadio">
+                    <input class="form-check-input" id="noneRadio" type="radio" name="categorySelect"
+                        value="filter_none" checked>
+                    <label class="form-check-label" for="exampleRadios2">
                         None
                     </label>
                 </div>
@@ -144,35 +144,35 @@
             </div>
         </div>
 
-            <!-- Category select -->
+    <!-- Category select -->
     <h4>Category</h4>
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="filter_park" id="exampleRadios2" value="option1">
+        <input class="form-check-input" type="radio" name="categorySelect" id="exampleRadios2" value="filter_park">
         <label class="form-check-label" for="exampleRadios2">
             Terrain Park
         </label>
     </div>
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="filter_groomers" id="exampleRadios2" value="option2">
+        <input class="form-check-input" type="radio" name="categorySelect" id="exampleRadios2" value="filter_groomers">
         <label class="form-check-label" for="exampleRadios2">
             Groomers
         </label>
     </div>
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="filter_lifts" id="exampleRadios2" value="option2">
+        <input class="form-check-input" type="radio" name="categorySelect" id="exampleRadios2" value="filter_lifts">
         <label class="form-check-label" for="exampleRadios2">
             Chairlifts & Tow Ropes
         </label>
     </div>
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="filter_vibe" id="exampleRadios2" value="option2">
+        <input class="form-check-input" type="radio" name="categorySelect" id="exampleRadios2" value="filter_vibe">
         <label class="form-check-label" for="exampleRadios2">
             Overall Vibe
         </label>
     </div>
     <div class="form-check mb-4">
-        <input class="form-check-input" id="noneRadio" type="radio" name="filter_none" value="option2" checked>
-        <label class="form-check-label" for="noneRadio">
+        <input class="form-check-input" id="noneRadio" type="radio" name="categorySelect" value="filter_none" checked>
+        <label class="form-check-label" for="exampleRadios2">
             None
         </label>
     </div>
@@ -191,9 +191,9 @@
                     <h5 class="card-title">{{resort.name}}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{resort.city}}, {{resort.state}}</h6>
                 </div>
-                {% if category %}
+                {% if category == "Terrain Park" %}
                 <div class="progress half-width" display="float:right">
-                    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+                    <div class="progress-bar" role="progressbar" style="width: {{resort.avg_park}}%" aria-valuenow="25" aria-valuemin="0"
                         aria-valuemax="100">{{category}}</div>
                 </div>
                 {% endif %}

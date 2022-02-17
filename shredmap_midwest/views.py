@@ -231,11 +231,7 @@ def resorts(request):
         OH = request.POST.get("OH", None)
 
         # Access the category filter, if applied
-        filter_park = request.POST.get("filter_park", None)
-        filter_groomers = request.POST.get("filter_groomers", None)
-        filter_lifts = request.POST.get("filter_lifts", None)
-        filter_vibe = request.POST.get("filter_vibe", None)
-        filter_none = request.POST.get("filter_none", None)
+        categorySelect = request.POST.get("categorySelect")
 
         # Adjust the list of resorts based on what states were selected
         # https://simpleisbetterthancomplex.com/tips/2016/06/20/django-tip-5-how-to-merge-querysets.html
@@ -268,6 +264,21 @@ def resorts(request):
                 state="OH")
 
         # Order the list based on which category was selected
+        if categorySelect == "filter_park":
+            filtered_resorts = filtered_resorts.order_by("avg_park")
+            category = "Terrain Park"
+
+        elif categorySelect == "filter_groomers":
+            filtered_resorts = filtered_resorts.order_by("avg_groomer")
+            category = "Groomers"
+
+        elif categorySelect == "filter_lifts":
+            filtered_resorts = filtered_resorts.order_by("avg_lift")
+            category = "Chairlifts & Tow Ropes"
+
+        elif categorySelect == "filter_vibe":
+            filtered_resorts = filtered_resorts.order_by("avg_vibe")
+            category = "Overall Vibe"
 
         return render(request, "shredmap_midwest/resorts.html", {
             "resorts": filtered_resorts,

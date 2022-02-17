@@ -219,47 +219,36 @@ def resorts(request):
         # Start out with an empty queryset (we will add to this based on what filters the user selects)
         filtered_resorts = Resort.objects.none()
 
-        # Access the state filters the user toggled (None if the filter was not turned on)
-        ND = request.POST.get("ND", None)
-        SD = request.POST.get("SD", None)
-        MN = request.POST.get("MN", None)
-        WI = request.POST.get("WI", None)
-        MI = request.POST.get("MI", None)
-        IL = request.POST.get("IL", None)
-        MO = request.POST.get("MO", None)
-        IN = request.POST.get("IN", None)
-        OH = request.POST.get("OH", None)
-
         # Access the category filter, if applied
         categorySelect = request.POST.get("categorySelect")
 
         # Adjust the list of resorts based on what states were selected
         # https://simpleisbetterthancomplex.com/tips/2016/06/20/django-tip-5-how-to-merge-querysets.html
-        if ND:
+        if request.POST.get("ND"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="ND")
-        if SD:
+        if request.POST.get("SD"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="SD")
-        if MN:
+        if request.POST.get("MN"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="MN")
-        if WI:
+        if request.POST.get("WI"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="WI")
-        if MI:
+        if request.POST.get("MI"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="MI")
-        if IL:
+        if request.POST.get("IL"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="IL")
-        if MO:
+        if request.POST.get("MO"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="MO")
-        if IN:
+        if request.POST.get("IN"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="IN")
-        if OH:
+        if request.POST.get("OH"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="OH")
 

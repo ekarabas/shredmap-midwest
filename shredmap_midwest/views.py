@@ -216,6 +216,9 @@ def resorts(request):
     # If the user edits the filters, get the proper data
     if request.method == "POST":
 
+        # Keep track of the switches/radio buttons that are activated, so they don't reset
+        active_filters = []
+
         # Start out with an empty queryset (we will add to this based on what filters the user selects)
         filtered_resorts = Resort.objects.none()
 
@@ -227,51 +230,68 @@ def resorts(request):
         if request.POST.get("ND"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="ND")
+            active_filters.append("ND")
         if request.POST.get("SD"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="SD")
+            active_filters.append("SD")
         if request.POST.get("MN"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="MN")
+            active_filters.append("MN")
         if request.POST.get("WI"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="WI")
+            active_filters.append("WI")
         if request.POST.get("MI"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="MI")
+            active_filters.append("MI")
         if request.POST.get("IL"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="IL")
+            active_filters.append("IL")
         if request.POST.get("MO"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="MO")
+            active_filters.append("MO")
         if request.POST.get("IN"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="IN")
+            active_filters.append("IN")
         if request.POST.get("OH"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="OH")
+            active_filters.append("OH")
 
         # Order the list based on which category was selected
         if categorySelect == "filter_park":
             filtered_resorts = filtered_resorts.order_by("-avg_park")
             category = "Terrain Park"
+            active_filters.append("park")
 
         elif categorySelect == "filter_groomers":
             filtered_resorts = filtered_resorts.order_by("-avg_groomer")
             category = "Groomers"
+            active_filters.append("groomers")
 
         elif categorySelect == "filter_lifts":
             filtered_resorts = filtered_resorts.order_by("-avg_lift")
             category = "Chairlifts & Tow Ropes"
+            active_filters.append("lift")
 
         elif categorySelect == "filter_vibe":
             filtered_resorts = filtered_resorts.order_by("-avg_vibe")
             category = "Overall Vibe"
+            active_filters.append("vibe")
+
+        else:
+            active_filters.append("noneRadio")
 
         return render(request, "shredmap_midwest/resorts.html", {
             "resorts": filtered_resorts,
             "category": category,
+            "active_filters": active_filters,
         })
 
     return render(request, "shredmap_midwest/resorts.html", {

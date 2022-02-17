@@ -13,42 +13,42 @@
                 <!-- State select -->
                 <h4>State</h4>
                 <div class="form-check form-switch">
-                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="ND">
+                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="ND" {% if "ND" in active_filters %}checked{% endif %}>
                     <label class="form-check-label" for="flexSwitchCheckDefault">North Dakota</label>
                 </div>
                 <div class="form-check form-switch ">
-                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="SD">
+                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="SD" {% if "SD" in active_filters %}checked{% endif %}>
                     <label class="form-check-label" for="flexSwitchCheckDefault">South Dakota</label>
                 </div>
                 <div class="form-check form-switch">
-                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="MN"> 
+                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="MN" {% if "MN" in active_filters %}checked{% endif %}> 
                     <label class="form-check-label" for="flexSwitchCheckDefault">Minnesota</label>
                 </div>
                 <div class="form-check form-switch">
-                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="WI">
+                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="WI" {% if "WI" in active_filters %}checked{% endif %}>
                     <label class="form-check-label" for="flexSwitchCheckDefault">Wisconsin</label>
                 </div>
                 <div class="form-check form-switch">
-                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="MI">
+                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="MI" {% if "MI" in active_filters %}checked{% endif %}>
                     <label class="form-check-label" for="flexSwitchCheckDefault">Michigan</label>
                 </div>
             </div>
             <div style="margin-right: 8%;">
                 <h4 class="invisible">.</h4>
                 <div class="form-check form-switch">
-                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="IL">
+                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="IL" {% if "IL" in active_filters %}checked{% endif %}>
                     <label class="form-check-label" for="flexSwitchCheckDefault">Illinois</label>
                 </div>
                 <div class="form-check form-switch">
-                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="MO">
+                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="MO" {% if "MO" in active_filters %}checked{% endif %}>
                     <label class="form-check-label" for="flexSwitchCheckDefault">Missouri</label>
                 </div>
                 <div class="form-check form-switch">
-                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="IN">
+                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="IN" {% if "IN" in active_filters %}checked{% endif %}>
                     <label class="form-check-label" for="flexSwitchCheckDefault">Indiana</label>
                 </div>
                 <div class="form-check form-switch">
-                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="OH">
+                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="OH" {% if "OH" in active_filters %}checked{% endif %}>
                     <label class="form-check-label" for="flexSwitchCheckDefault">Ohio</label>
                 </div>
             </div>
@@ -57,35 +57,35 @@
                 <h4>Category</h4>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="categorySelect" id="exampleRadios1"
-                        value="filter_park">
+                        value="filter_park" {% if "park" in active_filters %}checked{% endif %}>
                     <label class="form-check-label" for="exampleRadios1">
                         Terrain Park
                     </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="categorySelect" id="exampleRadios1"
-                        value="filter_groomers">
+                        value="filter_groomers" {% if "groomers" in active_filters %}checked{% endif %}>
                     <label class="form-check-label" for="exampleRadios2">
                         Groomers
                     </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="categorySelect" id="exampleRadios1"
-                        value="filter_lifts">
+                        value="filter_lifts" {% if "lift" in active_filters %}checked{% endif %}>
                     <label class="form-check-label" for="exampleRadios2">
                         Chairlifts & Tow Ropes
                     </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="categorySelect" id="exampleRadios1"
-                        value="filter_vibe">
+                        value="filter_vibe" {% if "vibe" in active_filters %}checked{% endif %}>
                     <label class="form-check-label" for="exampleRadios2">
                         Overall Vibe
                     </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" id="noneRadio" type="radio" name="categorySelect"
-                        value="filter_none" checked>
+                        value="filter_none" {% if "noneRadio" in active_filters %}checked{% endif %}>
                     <label class="form-check-label" for="exampleRadios2">
                         None
                     </label>
@@ -194,6 +194,24 @@
                 {% if category == "Terrain Park" and resort.avg_park %}
                 <div class="progress half-width" display="float:right">
                     <div class="progress-bar" role="progressbar" style="width: {{resort.avg_park}}%" aria-valuenow="25" aria-valuemin="0"
+                        aria-valuemax="100">{{category}}</div>
+                </div>
+                {% endif %}
+                {% if category == "Groomers" and resort.avg_groomer %}
+                <div class="progress half-width" display="float:right">
+                    <div class="progress-bar" role="progressbar" style="width: {{resort.avg_groomer}}%" aria-valuenow="25" aria-valuemin="0"
+                        aria-valuemax="100">{{category}}</div>
+                </div>
+                {% endif %}
+                {% if category == "Chairlifts & Tow Ropes" and resort.avg_lift %}
+                <div class="progress half-width" display="float:right">
+                    <div class="progress-bar" role="progressbar" style="width: {{resort.avg_lift}}%" aria-valuenow="25" aria-valuemin="0"
+                        aria-valuemax="100">{{category}}</div>
+                </div>
+                {% endif %}
+                {% if category == "Overall Vibe" and resort.avg_vibe %}
+                <div class="progress half-width" display="float:right">
+                    <div class="progress-bar" role="progressbar" style="width: {{resort.avg_vibe}}%" aria-valuenow="25" aria-valuemin="0"
                         aria-valuemax="100">{{category}}</div>
                 </div>
                 {% endif %}

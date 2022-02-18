@@ -231,38 +231,41 @@ def resorts(request):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="ND")
             active_filters.append("ND")
-        if request.POST.get("SD"):
+        elif request.POST.get("SD"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="SD")
             active_filters.append("SD")
-        if request.POST.get("MN"):
+        elif request.POST.get("MN"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="MN")
             active_filters.append("MN")
-        if request.POST.get("WI"):
+        elif request.POST.get("WI"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="WI")
             active_filters.append("WI")
-        if request.POST.get("MI"):
+        elif request.POST.get("MI"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="MI")
             active_filters.append("MI")
-        if request.POST.get("IL"):
+        elif request.POST.get("IL"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="IL")
             active_filters.append("IL")
-        if request.POST.get("MO"):
+        elif request.POST.get("MO"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="MO")
             active_filters.append("MO")
-        if request.POST.get("IN"):
+        elif request.POST.get("IN"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="IN")
             active_filters.append("IN")
-        if request.POST.get("OH"):
+        elif request.POST.get("OH"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="OH")
             active_filters.append("OH")
+        # If no states selected, show all resorts
+        else:
+            filtered_resorts = Resort.objects.all()
 
         # Order the list based on which category was selected
         if categorySelect == "filter_park":

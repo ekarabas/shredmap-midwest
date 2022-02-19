@@ -194,7 +194,7 @@
             </div>
             <div class="form-check">
                 <input class="form-check-input" id="noneRadio" type="radio" name="categorySelect" value="filter_none"
-                    {% if "noneRadio" in active_filters %}checked{% endif %}>
+                    {% if "noneRadio" in active_filters or none_radio %}checked{% endif %}>
                 <label class="form-check-label" for="exampleRadios2">
                     None
                 </label>

@@ -300,6 +300,7 @@ def resorts(request):
     return render(request, "shredmap_midwest/resorts.html", {
         "resorts": resorts,
         "category": category,
+        "none_radio": True,
     })
 
 

@@ -213,6 +213,15 @@ def resorts(request):
     # Get a list of all the resorts
     resorts = Resort.objects.all()
 
+    # Get the resorts the user has visited, if the user is signed in
+    if request.user.is_authenticated:
+        try:
+            visited_resorts = Review.objects.filter(author=request.user)
+        except Review.DoesNotExist:
+            return JsonResponse({"error": "User listed as a visitor, but review does not exist"})
+    else:
+        visited_resorts = None
+
     # If the user edits the filters, get the proper data
     if request.method == "POST":
 
@@ -295,12 +304,14 @@ def resorts(request):
             "resorts": filtered_resorts,
             "category": category,
             "active_filters": active_filters,
+            "visited_resorts": visited_resorts,
         })
 
     return render(request, "shredmap_midwest/resorts.html", {
         "resorts": resorts,
         "category": category,
         "none_radio": True,
+        "visited_resorts": visited_resorts,
     })
 
 

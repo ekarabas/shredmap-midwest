@@ -210,6 +210,9 @@
         <a href="/{{resort.id}}" class="resort-list-link">
             <div class="card resort-list-item justify-content-between">
                 <div class="card-body">
+                    {% if resort in visited_resorts %}
+                    <div><span class="badge bg-primary rounded-pill">Visited</span></div>
+                    {% endif %}
                     <div display="float:left">
                         <h5 class="card-title">{{resort.name}}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{resort.city}}, {{resort.state}}</h6>
@@ -239,6 +242,7 @@
                     </div>
                     {% endif %}
                 </div>
+                
             </div>
         </a>
         {% endfor %}

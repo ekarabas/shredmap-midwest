@@ -118,6 +118,10 @@ h2 {
     display: block;
 }
 
+.rounded-pill {
+    float: right;
+}
+
 /* https://stackoverflow.com/questions/42586044/change-css-only-for-mobile-devices */
 @media (max-width: 700px) {
 

@@ -214,13 +214,19 @@ def resorts(request):
     resorts = Resort.objects.all()
 
     # Get the resorts the user has visited, if the user is signed in
+    visited_resorts = Resort.objects.none()
     if request.user.is_authenticated:
         try:
-            visited_resorts = Review.objects.filter(author=request.user)
+            this_user_reviews = Review.objects.filter(author=request.user)
         except Review.DoesNotExist:
             return JsonResponse({"error": "User listed as a visitor, but review does not exist"})
+
+        for review in this_user_reviews:
+            visited_resorts = visited_resorts | Resort.objects.filter(
+                resort_review=review)
+
     else:
-        visited_resorts = None
+        this_user_reviews = None
 
     # If the user edits the filters, get the proper data
     if request.method == "POST":

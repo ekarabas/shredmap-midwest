@@ -1,3 +1,4 @@
+anaconda-navigator
 anaconda-project
 asn1crypto
 astropy

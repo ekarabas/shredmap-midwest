@@ -16,8 +16,6 @@ cytoolz
 distributed
 django
 fastcache
-flask-login
-flask-sqlalchemy
 gevent
 gmpy2
 gunicorn
@@ -64,7 +62,6 @@ singledispatch
 sortedcollections
 spyder
 statsmodels
-submit50
 sympy
 tables
 typing

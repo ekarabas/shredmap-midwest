@@ -1,4 +1,3 @@
-anaconda-project
 asn1crypto
 astropy
 autopep8

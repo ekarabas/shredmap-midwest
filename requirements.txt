@@ -6,4 +6,3 @@ pathlib
 decouple
 django-heroku
 datetime
-sys

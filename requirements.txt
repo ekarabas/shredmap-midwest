@@ -32,7 +32,6 @@ mkl-fft
 mkl-random
 mpmath
 msgpack-python
-navigator-updater
 nltk
 nose
 numba

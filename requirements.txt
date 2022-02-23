@@ -3,6 +3,5 @@ python-decouple
 SQLAlchemy
 gunicorn
 pathlib
-decouple
 django-heroku
 datetime

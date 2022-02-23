@@ -14,6 +14,7 @@ It is an interactive map of each official ski/snowboard hill in the midwest. As 
 * Map markers change colors based on which locations have been visited by the user
 * Forms are Bootstrap Modals, multiple forms on the same page
 * Ability to simultaneously filter and sort database items on multiple criteria
+* Three buttons allow easy navigation to resort locations via Apple Maps, Google Maps, and Waze
 * Utilizes Leaflet JavaScript library: https://leafletjs.com/
 
 ## Files

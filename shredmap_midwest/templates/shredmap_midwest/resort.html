@@ -67,6 +67,16 @@
     {% endif %}
     {% endif %}
 
+
+    <!-- https://www.geeksforgeeks.org/how-to-open-url-in-new-tab-using-javascript/ -->
+        <button type="button" class="btn btn-light directions-button"
+        onClick="window.open('http://maps.apple.com/?ll={{resort.x}},{{resort.y}}', '_blank')">Apple Maps</button>
+        <button type="button" class="btn btn-light directions-button"
+        onClick="window.open('https://www.google.com/maps/@?api=1&map_action=map&center={{resort.x}}%2C{{resort.y}}', '_blank')">Google
+        Maps</button>
+    <button type="button" class="btn btn-light directions-button"
+        onClick="window.open('https://waze.com/ul?ll={{resort.x}},{{resort.y}}', '_blank')">Waze</button>
+
     <!-- Review modal -->
     <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
         <div class="modal-dialog">

@@ -48,7 +48,6 @@ pycrypto
 pycurl
 pyflakes
 pylint
-pyodbc
 pyopenssl
 pysocks
 pytest-astropy

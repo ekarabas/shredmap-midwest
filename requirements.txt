@@ -5,3 +5,4 @@ gunicorn
 pathlib
 django-heroku
 datetime
+dj-database-url

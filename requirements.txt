@@ -1,3 +1,8 @@
-Django==3.2.7
-python-decouple==3.6
-SQLAlchemy==1.2.7
+Django
+python-decouple
+SQLAlchemy
+gunicorn
+pathlib
+decouple
+os
+django-heroku

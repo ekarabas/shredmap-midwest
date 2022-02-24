@@ -15,6 +15,7 @@ It is an interactive map of each official ski/snowboard hill in the midwest. As 
 * Forms are Bootstrap Modals, multiple forms on the same page
 * Ability to simultaneously filter and sort database items on multiple criteria
 * Three buttons allow easy navigation to resort locations via Apple Maps, Google Maps, and Waze
+* Project hosted online via Heroku using Postgres SQL database structure
 * Utilizes Leaflet JavaScript library: https://leafletjs.com/
 
 ## Files

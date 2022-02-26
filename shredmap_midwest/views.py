@@ -6,10 +6,14 @@ from django.db import IntegrityError
 from django.http.response import JsonResponse
 from datetime import datetime
 from django.db.models import Avg
+from itertools import chain
 
 from sqlalchemy import false
 
 from .models import User, Resort, Review
+
+import logging
+logger = logging.getLogger('django')
 
 
 def index(request):
@@ -240,46 +244,60 @@ def resorts(request):
         # Access the category filter, if applied
         categorySelect = request.POST.get("categorySelect")
 
+        # Keep track of whether a state selection was made
+        stateSelected = False
+
         # Adjust the list of resorts based on what states were selected
+        # In hindsight this could probably be accomplished with a loop
         # https://simpleisbetterthancomplex.com/tips/2016/06/20/django-tip-5-how-to-merge-querysets.html
         if request.POST.get("ND"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="ND")
             active_filters.append("ND")
+            stateSelected = True
         if request.POST.get("SD"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="SD")
             active_filters.append("SD")
+            stateSelected = True
         if request.POST.get("MN"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="MN")
             active_filters.append("MN")
+            stateSelected = True
         if request.POST.get("WI"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="WI")
-            active_filters.append("WI")
+            logger.info("ND selected")
+            stateSelected = True
         if request.POST.get("MI"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="MI")
             active_filters.append("MI")
+            stateSelected = True
         if request.POST.get("IL"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="IL")
             active_filters.append("IL")
+            stateSelected = True
         if request.POST.get("MO"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="MO")
             active_filters.append("MO")
+            stateSelected = True
         if request.POST.get("IN"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="IN")
             active_filters.append("IN")
+            stateSelected = True
         if request.POST.get("OH"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="OH")
             active_filters.append("OH")
+            stateSelected = True
+
         # If no states selected, show all resorts
-        else:
+        if not stateSelected:
             filtered_resorts = Resort.objects.all()
 
         # Order the list based on which category was selected

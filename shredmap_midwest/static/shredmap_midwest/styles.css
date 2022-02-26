@@ -37,8 +37,9 @@ textarea {
 }
 
 /* Leaflet map specs */
+/* https://stackoverflow.com/questions/16543446/how-to-make-leaflet-map-height-variable */
 #map {
-    height: 700px;
+    height: 85vh;
 }
 
 .no-underline {
@@ -118,12 +119,24 @@ h2 {
     display: block;
 }
 
+.mobile-nav {
+    display: none;
+}
+
+.desktop-nav {
+    display: inline-block;
+}
+
 .rounded-pill {
     float: right;
 }
 
 .directions-button {
     margin-bottom: 1%;
+}
+
+.right-align {
+    float: right;
 }
 
 /* https://stackoverflow.com/questions/42586044/change-css-only-for-mobile-devices */
@@ -152,6 +165,18 @@ h2 {
 
      .resort-list-item {
         width: 100%;
+    }
+
+    #logged_in {
+        display: none;
+    }
+
+    .mobile-nav {
+        display: inline-block;
+    }
+    
+    .desktop-nav {
+        display: none;
     }
 
 }

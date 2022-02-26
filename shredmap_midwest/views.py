@@ -246,35 +246,35 @@ def resorts(request):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="ND")
             active_filters.append("ND")
-        elif request.POST.get("SD"):
+        if request.POST.get("SD"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="SD")
             active_filters.append("SD")
-        elif request.POST.get("MN"):
+        if request.POST.get("MN"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="MN")
             active_filters.append("MN")
-        elif request.POST.get("WI"):
+        if request.POST.get("WI"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="WI")
             active_filters.append("WI")
-        elif request.POST.get("MI"):
+        if request.POST.get("MI"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="MI")
             active_filters.append("MI")
-        elif request.POST.get("IL"):
+        if request.POST.get("IL"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="IL")
             active_filters.append("IL")
-        elif request.POST.get("MO"):
+        if request.POST.get("MO"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="MO")
             active_filters.append("MO")
-        elif request.POST.get("IN"):
+        if request.POST.get("IN"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="IN")
             active_filters.append("IN")
-        elif request.POST.get("OH"):
+        if request.POST.get("OH"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="OH")
             active_filters.append("OH")

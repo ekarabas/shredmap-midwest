@@ -23,12 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # https://stackoverflow.com/questions/47949022/git-heroku-how-to-hide-my-secret-key
-#SECRET_KEY = os.getenv('SECRET_KEY')
-SECRET_KEY = 'xt+z#j@$9o9dk)sax#$4xj06e%a!*cw(606&dou87p#m@zp2#5'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'shredmap-midwest.herokuapp.com']
 

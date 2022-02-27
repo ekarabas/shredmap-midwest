@@ -6,12 +6,12 @@ from django.db import IntegrityError
 from django.http.response import JsonResponse
 from datetime import datetime
 from django.db.models import Avg
-from itertools import chain
 
 from sqlalchemy import false
 
 from .models import User, Resort, Review
 
+# Send a message to the Django console using logger.info
 import logging
 logger = logging.getLogger('django')
 
@@ -50,17 +50,6 @@ def resort_view(request, resort_id):
         except Review.DoesNotExist:
             return JsonResponse({"error": "User listed as a visitor, but review does not exist"})
 
-    # Update the average values for the reviews
-    # https://stackoverflow.com/questions/41744096/efficient-way-to-update-multiple-fields-of-django-model-object
-    Resort.objects.filter(id=resort_id).update(
-        avg_park=get_average(resort, 'park_review')['park_review__avg'])
-    Resort.objects.filter(id=resort_id).update(
-        avg_groomer=get_average(resort, 'groomer_review')['groomer_review__avg'])
-    Resort.objects.filter(id=resort_id).update(
-        avg_lift=get_average(resort, 'lift_review')['lift_review__avg'])
-    Resort.objects.filter(id=resort_id).update(
-        avg_vibe=get_average(resort, 'vibe_review')['vibe_review__avg'])
-
     # If the user submitted the review form, validate it and post it
     if request.method == "POST":
 
@@ -78,11 +67,11 @@ def resort_view(request, resort_id):
                 "reviews": reviews,
                 "visited": visited,
                 "this_review": this_review,
-                "avg_park": resort.avg_park,
-                "avg_groomer": resort.avg_groomer,
-                "avg_lift": resort.avg_lift,
-                "avg_vibe": resort.avg_vibe,
                 "deleted": deleted,
+                "avg_park": reviews.aggregate(Avg('park_review')),
+                "avg_groomer": reviews.aggregate(Avg('groomer_review')),
+                "avg_lift": reviews.aggregate(Avg('lift_review')),
+                "avg_vibe": reviews.aggregate(Avg('vibe_review')),
             })
 
         review = Review()
@@ -165,10 +154,10 @@ def resort_view(request, resort_id):
                 "reviews": reviews,
                 "visited": visited,
                 "this_review": this_review,
-                "avg_park": resort.avg_park,
-                "avg_groomer": resort.avg_groomer,
-                "avg_lift": resort.avg_lift,
-                "avg_vibe": resort.avg_vibe,
+                "avg_park": reviews.aggregate(Avg('park_review')),
+                "avg_groomer": reviews.aggregate(Avg('groomer_review')),
+                "avg_lift": reviews.aggregate(Avg('lift_review')),
+                "avg_vibe": reviews.aggregate(Avg('vibe_review')),
             })
 
         # Save the review
@@ -183,6 +172,9 @@ def resort_view(request, resort_id):
             this_review = review
             review.save()
 
+        # Update the average values for the reviews
+        update_averages(resort, resort_id)
+
         success = "Thank you for your review!"
 
         return render(request, "shredmap_midwest/resort.html", {
@@ -191,10 +183,10 @@ def resort_view(request, resort_id):
             "reviews": reviews,
             "visited": visited,
             "this_review": this_review,
-            "avg_park": resort.avg_park,
-            "avg_groomer": resort.avg_groomer,
-            "avg_lift": resort.avg_lift,
-            "avg_vibe": resort.avg_vibe,
+            "avg_park": reviews.aggregate(Avg('park_review')),
+            "avg_groomer": reviews.aggregate(Avg('groomer_review')),
+            "avg_lift": reviews.aggregate(Avg('lift_review')),
+            "avg_vibe": reviews.aggregate(Avg('vibe_review')),
         })
 
     # Show information about the resort
@@ -203,10 +195,10 @@ def resort_view(request, resort_id):
         "reviews": reviews,
         "visited": visited,
         "this_review": this_review,
-        "avg_park": resort.avg_park,
-        "avg_groomer": resort.avg_groomer,
-        "avg_lift": resort.avg_lift,
-        "avg_vibe": resort.avg_vibe,
+        "avg_park": reviews.aggregate(Avg('park_review')),
+        "avg_groomer": reviews.aggregate(Avg('groomer_review')),
+        "avg_lift": reviews.aggregate(Avg('lift_review')),
+        "avg_vibe": reviews.aggregate(Avg('vibe_review')),
     })
 
 
@@ -295,6 +287,11 @@ def resorts(request):
                 state="OH")
             active_filters.append("OH")
             stateSelected = True
+        if request.POST.get("IA"):
+            filtered_resorts = filtered_resorts | Resort.objects.filter(
+                state="IA")
+            active_filters.append("IA")
+            stateSelected = True
 
         # If no states selected, show all resorts
         if not stateSelected:
@@ -351,6 +348,21 @@ def get_average(resort, category):
 
     # Return the average reviews for the specified category
     return this_resort_reviews.aggregate(Avg(category))
+
+
+def update_averages(resort, resort_id):
+    # Python function to update the average values for the reviews
+    # https://stackoverflow.com/questions/41744096/efficient-way-to-update-multiple-fields-of-django-model-object
+    Resort.objects.filter(id=resort_id).update(
+        avg_park=get_average(resort, 'park_review')['park_review__avg'])
+    Resort.objects.filter(id=resort_id).update(
+        avg_groomer=get_average(resort, 'groomer_review')['groomer_review__avg'])
+    Resort.objects.filter(id=resort_id).update(
+        avg_lift=get_average(resort, 'lift_review')['lift_review__avg'])
+    Resort.objects.filter(id=resort_id).update(
+        avg_vibe=get_average(resort, 'vibe_review')['vibe_review__avg'])
+
+    return
 
 
 def login_view(request):

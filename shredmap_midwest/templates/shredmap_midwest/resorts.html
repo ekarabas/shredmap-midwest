@@ -60,6 +60,11 @@
                             {% if "OH" in active_filters %}checked{% endif %}>
                         <label class="form-check-label" for="flexSwitchCheckDefault">Ohio</label>
                     </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="IA"
+                            {% if "IA" in active_filters %}checked{% endif %}>
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Iowa</label>
+                    </div>
                 </div>
                 <div>
                     <!-- Category select -->
@@ -159,6 +164,11 @@
                     <input class="form-check-input stateSwitch" type="checkbox" role="switch"
                         id="flexSwitchCheckDefault" name="OH" {% if "OH" in active_filters %}checked{% endif %}>
                     <label class="form-check-label" for="flexSwitchCheckDefault">Ohio</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input stateSwitch" type="checkbox" role="switch" name="IA"
+                        {% if "IA" in active_filters %}checked{% endif %}>
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Iowa</label>
                 </div>
             </div>
 

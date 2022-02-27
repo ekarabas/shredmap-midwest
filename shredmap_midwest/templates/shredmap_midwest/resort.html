@@ -290,25 +290,26 @@
     <div class="half-width">
         <h6 class="fw-light">Terrain Park</h6>
         <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+            <!-- Make the progress bar grey if there aren't any reviews for that category -->
+            <div class="progress-bar progress-bar-striped progress-bar-animated {% if not avg_park.park_review__avg %} bg-secondary {% endif %}" role="progressbar" aria-valuenow="75"
                 aria-valuemin="0" aria-valuemax="100" style="width: {{avg_park.park_review__avg}}%"></div>
         </div>
         <br>
         <h6 class="fw-light">Groomers</h6>
         <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+            <div class="progress-bar progress-bar-striped progress-bar-animated {% if not avg_groomer.groomer_review__avg %} bg-secondary {% endif %}" role="progressbar" aria-valuenow="75"
                 aria-valuemin="0" aria-valuemax="100" style="width: {{avg_groomer.groomer_review__avg}}%"></div>
         </div>
         <br>
         <h6 class="fw-light">Chairlifts & Tow Ropes</h6>
         <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+            <div class="progress-bar progress-bar-striped progress-bar-animated {% if not avg_lift.lift_review__avg %} bg-secondary {% endif %}" role="progressbar" aria-valuenow="75"
                 aria-valuemin="0" aria-valuemax="100" style="width: {{avg_lift.lift_review__avg}}%"></div>
         </div>
         <br>
         <h6 class="fw-light">Overall Vibe</h6>
         <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+            <div class="progress-bar progress-bar-striped progress-bar-animated {% if not avg_vibe.vibe_review__avg %} bg-secondary {% endif %}" role="progressbar" aria-valuenow="75"
                 aria-valuemin="0" aria-valuemax="100" style="width: {{avg_vibe.vibe_review__avg}}%">
             </div>
         </div>

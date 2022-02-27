@@ -55,11 +55,14 @@ def resort_view(request, resort_id):
 
         # If the user submitted the delete form, delete the review
         if request.POST.get("delete") != None:
-            this_review.delete()
-            this_review = ""
-            resort.visitors.remove(request.user)
-            visited = False
-            deleted = True
+
+            # Only attempt to delete the review if it exists (prevents error on page refresh after deleting)
+            if this_review:
+                this_review.delete()
+                this_review = ""
+                resort.visitors.remove(request.user)
+                visited = False
+                deleted = True
 
             return render(request, "shredmap_midwest/resort.html", {
                 "resort": resort,

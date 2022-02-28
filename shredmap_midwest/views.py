@@ -263,7 +263,7 @@ def resorts(request):
         if request.POST.get("WI"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(
                 state="WI")
-            logger.info("ND selected")
+            active_filters.append("WI")
             stateSelected = True
         if request.POST.get("MI"):
             filtered_resorts = filtered_resorts | Resort.objects.filter(

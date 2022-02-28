@@ -36,6 +36,7 @@ if (map_on_page) {
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         maxZoom: 18,
+        tap: false,
         id: 'mapbox/light-v10', //https://docs.mapbox.com/api/maps/styles/
         tileSize: 512,
         zoomOffset: -1,

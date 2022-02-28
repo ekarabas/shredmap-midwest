@@ -6,6 +6,7 @@ from django.db import IntegrityError
 from django.http.response import JsonResponse
 from datetime import datetime
 from django.db.models import Avg
+from django.db.models import F
 
 from sqlalchemy import false
 
@@ -301,23 +302,28 @@ def resorts(request):
             filtered_resorts = Resort.objects.all()
 
         # Order the list based on which category was selected
+        # https://stackoverflow.com/questions/15121093/django-adding-nulls-last-to-query
         if categorySelect == "filter_park":
-            filtered_resorts = filtered_resorts.order_by("-avg_park")
+            filtered_resorts = filtered_resorts.order_by(
+                F('avg_park').desc(nulls_last=True))
             category = "Terrain Park"
             active_filters.append("park")
 
         elif categorySelect == "filter_groomers":
-            filtered_resorts = filtered_resorts.order_by("-avg_groomer")
+            filtered_resorts = filtered_resorts.order_by(
+                F('avg_groomer').desc(nulls_last=True))
             category = "Groomers"
             active_filters.append("groomers")
 
         elif categorySelect == "filter_lifts":
-            filtered_resorts = filtered_resorts.order_by("-avg_lift")
+            filtered_resorts = filtered_resorts.order_by(
+                F('avg_lift').desc(nulls_last=True))
             category = "Chairlifts & Tow Ropes"
             active_filters.append("lift")
 
         elif categorySelect == "filter_vibe":
-            filtered_resorts = filtered_resorts.order_by("-avg_vibe")
+            filtered_resorts = filtered_resorts.order_by(
+                F('avg_vibe').desc(nulls_last=True))
             category = "Overall Vibe"
             active_filters.append("vibe")
 

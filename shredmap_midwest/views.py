@@ -426,6 +426,10 @@ def register(request):
         return render(request, "shredmap_midwest/register.html")
 
 
+def how_to(request):
+    return render(request, "shredmap_midwest/howto.html")
+
+
 def resort(request, resort_id):
     # API route for getting the resort locations
 

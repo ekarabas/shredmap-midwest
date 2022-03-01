@@ -44,6 +44,7 @@
             <div class="navbar-nav">
               <a class="nav-link" href="{% url 'index' %}">Home</a>
               <a class="nav-link" href="{% url 'resorts' %}">Resort List</a>
+              <a class="nav-link" href="{% url 'how_to' %}">How to Use</a>
               <!-- Log in/out buttons for mobile -->
               {% if user.is_authenticated %}
               <a class="btn btn-outline-danger me-2 mobile-nav" href="{% url 'logout' %}" type="button">Log out</a>

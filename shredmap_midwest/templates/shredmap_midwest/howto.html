@@ -1,0 +1,41 @@
+{% extends "shredmap_midwest/layout.html" %}
+
+{% block body %}
+
+<div class="padding-please half-width">
+    <h2>How to Use This Website</h2>
+
+    <h5>Home Page</h5>
+    <p>Click and drag to move around the map. You can zoom in/out by scrolling or by using the +/- button on the left.
+        The grey markers indicate active ski resorts in the midwest. Clicking the name will bring you to that resort's
+        page. The markers will appear green after you've left a review
+        at that resort, indicating your visit (you must be signed in to leave reviews). Clicking on a marker will bring
+        up the name and location of that resort.
+    </p>
+
+    <h5>Resort Page</h5>
+    <p>Each resort has its own page on the website where you can review the resort, edit/delete your review, read
+        reviews left by other users, see the average review scores across four categories, get directions to the resort
+        via Apple Maps, Google Maps,
+        and Waze, and view the resort's website. Resorts are reviewed across four categories: Terrain Park, Groomers,
+        Chairlifts & Tow Ropes, and Overall Vibe. Each category is optional, including the review text. To review a
+        category,
+        enable the switch checkbox for that category and drag the slider to the right based on how highly you want to
+        review it (all the way to the right is the highest review, all the way to left is the lowest). You can edit or
+        delete your review at any time.</p>
+
+    <h5>Resort List</h5>
+    <p>The resort list page allows you to filter resorts based on two things: State and Category. You can select as
+        many states as you want. If you select no states, all available resorts will be shown. You can also filter
+        the resorts
+        based on the four review categories: Terrain Park, Groomers, Chairlifts & Tow Ropes, and Overall Vibe. This
+        will show the resorts in descending order based on which resort has the highest average reviews for your
+        selected category.
+        For example, if you want to see the best terrain parks in Wisconsin and Minnesota, you can select those two
+        states along with the "Terrain Park" radio button, and it will display all the Wisconsin and Minnesota ski
+        hills, starting
+        with the highest rated terrain park and ending with the lowest. Clicking on any of the resorts in the list
+        will bring you to the resort page. You will see a "Visited" marker on each resort that you've reviewed,
+        indicating that you've been there.</p>
+</div>
+{% endblock %}

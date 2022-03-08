@@ -3,6 +3,9 @@ This is my final project for CS50w: https://cs50.harvard.edu/web/2020/
 
 It is an interactive map of each official ski/snowboard hill in the midwest. As a snowboarder in the midwest, I wanted to create this tool to track the hills I visit, and thought others may want to do the same. Additionally, many people don't realize how many opportunities there are to ski and snowboard in the midwest. This can help with that. Hills can be revieviewed by users on four different criteria in addition to a message, and the aggregated criteria scores are available on each hill's page, along with the individual reviews. More information below.
 
+##### Note: Heroku and Django
+The project is currently hosted at https://shredmap-midwest.herokuapp.com/. Feel free to log in, leave some reviews, and test it out. In order to use it locally with Django's `python manage.py runserver` command, I needed hard-code in a Django secret key in `settings.py` like this: `SECRET_KEY="secretkeyhere"`. I also needed to set `Debug=True`. This may be the case for you as well if opt to use Django's local server rather than the version hosted online. 
+
 ## Distinctiveness and Complexity
 #### What makes this different than the projects we worked on in class?
 * Interactive map with clickable markers 

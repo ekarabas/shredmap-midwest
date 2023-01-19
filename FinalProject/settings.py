@@ -23,7 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # https://stackoverflow.com/questions/47949022/git-heroku-how-to-hide-my-secret-key
-SECRET_KEY = os.getenv('SECRET_KEY')
+# Temp key for testing purposes
+SECRET_KEY = 'uolv--v@*8s2u29@%ygo71+=-95+7nhh7j5gg0!qy9)uokwc5#'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
